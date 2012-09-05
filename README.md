@@ -3,6 +3,8 @@ Task Service
 
 Simple project to define scheduled tasks.
 
+### Rationale ###
+
 In Abiquo platform, there are many tasks that need to be executed periodically. Tasks such as sanity checks are important to guarantee platform integrity, and must be executed in background at a given time. To accomplish this, and to have a unified way to define and schedule this kind of tasks, Abiquo provides a *Task Service* with the basic functionality needed to manage them.
 
 ### Task Configuration ###
