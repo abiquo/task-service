@@ -9,14 +9,14 @@ In Abiquo platform, there are many tasks that need to be executed periodically. 
 
 Two annotations are provided to configure periodical tasks:
 
-*@Task* - Is used at class level to configure that class to be a periodical task. It has the following attributes used to configure task scheduling:
-* *name* (optional) - The name of the task.
-* *interval* - The execution interval.
-* *timeUnit* (default is MINUTES) - The time unit in which the interval is expressed (Currently only MINUTES and SECONDS are supported).
-* *startDelay* (default is 0) - The delay between task loading and task first execution.
-* *cron* (only supported in _Quartz_ implementations) - The cron expression that configures the task.
+**@Task** - Is used at class level to configure that class to be a periodical task. It has the following attributes used to configure task scheduling:
+* **name** (optional) - The name of the task.
+* **interval** - The execution interval.
+* **timeUnit** (default is MINUTES) - The time unit in which the interval is expressed (Currently only MINUTES and SECONDS are supported).
+* **startDelay** (default is 0) - The delay between task loading and task first execution.
+* **cron** (only supported in _Quartz_ implementations) - The cron expression that configures the task.
 
-*@TaskMethod* \- Is used to annotate the method of the class that will be executed by the task. There must be one and only one method annotated as @TaskMethod in a @Task annotated class.
+**@TaskMethod** \- Is used to annotate the method of the class that will be executed by the task. There must be one and only one method annotated as @TaskMethod in a @Task annotated class.
 
 The following are a few examples of Task configurations:
 
@@ -47,4 +47,5 @@ Once the instance of the service has been obtained, tasks can be scheduled via a
 ### External Resources ###
 
 [Quartz official homepage](http://www.quartz-scheduler.org/)
+
 [Quartz cron configuration](http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html)
