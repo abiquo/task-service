@@ -20,7 +20,7 @@
         </dependency>
         <!-- Quartz -->
         <dependency>
-            <groupId>opensymphony</groupId>
+            <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <optional>true</optional>
         </dependency>
