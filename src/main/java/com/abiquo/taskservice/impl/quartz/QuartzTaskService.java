@@ -8,18 +8,20 @@ package com.abiquo.taskservice.impl.quartz;
 
 import static com.abiquo.taskservice.utils.TaskUtils.getName;
 import static com.abiquo.taskservice.utils.TaskUtils.validateTask;
+import static org.quartz.SimpleScheduleBuilder.repeatSecondlyForever;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import org.quartz.CronTrigger;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
-import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,7 +126,10 @@ public class QuartzTaskService extends AbstractTaskService
         LOGGER.info("Adding task {} to {}", taskName, this.getClass().getSimpleName());
 
         // Create JobDetail Object
-        JobDetail jobDetail = new JobDetail(taskName, DEFAULT_GROUP_NAME, QuartzTask.class);
+        JobDetail jobDetail = JobBuilder.newJob(QuartzTask.class) //
+            .withIdentity(taskName, DEFAULT_GROUP_NAME) //
+            .build();
+
         jobDetail.getJobDataMap().put(QuartzTask.TASK_CLASS_ATTRIBUTE, taskClass);
 
         // Create Trigger
@@ -168,7 +173,7 @@ public class QuartzTaskService extends AbstractTaskService
 
         try
         {
-            scheduler.unscheduleJob(triggerName, DEFAULT_GROUP_NAME);
+            scheduler.unscheduleJob(TriggerKey.triggerKey(triggerName));
         }
         catch (SchedulerException ex)
         {
@@ -223,12 +228,11 @@ public class QuartzTaskService extends AbstractTaskService
         startTime.add(timeUnit == TimeUnit.MINUTES ? Calendar.MINUTE : Calendar.SECOND, delay);
 
         // Create trigger
-        SimpleTrigger trigger = new SimpleTrigger(triggerName, DEFAULT_GROUP_NAME);
-        trigger.setStartTime(startTime.getTime());
-        trigger.setRepeatInterval(repeatInterval * repeatFactor);
-        trigger.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);
-
-        return trigger;
+        return TriggerBuilder.newTrigger() //
+            .withIdentity(triggerName, DEFAULT_GROUP_NAME) //
+            .startAt(startTime.getTime()) //
+            .withSchedule(repeatSecondlyForever(repeatInterval * repeatFactor)) //
+            .build();
     }
 
     /**
@@ -245,9 +249,12 @@ public class QuartzTaskService extends AbstractTaskService
     {
         try
         {
-            return new CronTrigger(triggerName, DEFAULT_GROUP_NAME, cronExpression);
+            return TriggerBuilder.newTrigger() //
+                .withIdentity(triggerName, DEFAULT_GROUP_NAME) //
+                .withSchedule(CronScheduleBuilder.cronSchedule(cronExpression)) //
+                .build();
         }
-        catch (ParseException ex)
+        catch (Exception ex)
         {
             throw new TaskServiceException("Invalid cron expression for task: "
                 + taskClass.getName(), ex);
@@ -288,7 +295,9 @@ public class QuartzTaskService extends AbstractTaskService
         LOGGER.info("Adding task {} to {}", taskName, this.getClass().getSimpleName());
 
         // Create JobDetail Object
-        JobDetail jobDetail = new JobDetail(taskName, DEFAULT_GROUP_NAME, QuartzTask.class);
+        JobDetail jobDetail = JobBuilder.newJob(QuartzTask.class) //
+            .withIdentity(taskName, DEFAULT_GROUP_NAME) //
+            .build();
         jobDetail.getJobDataMap().put(QuartzTask.TASK_CLASS_ATTRIBUTE, taskClass);
 
         // Create Trigger
