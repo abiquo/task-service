@@ -105,9 +105,8 @@ public class AnnotationUtils
                 AnnotationMetadata metadata = reader.getAnnotationMetadata();
                 if (metadata.hasAnnotation(annotationType.getName()))
                 {
-                    Class< ? extends Object> clazz =
-                        ClassUtils.forName(metadata.getClassName(), Thread.currentThread()
-                            .getContextClassLoader());
+                    Class< ? extends Object> clazz = ClassUtils.forName(metadata.getClassName(),
+                        Thread.currentThread().getContextClassLoader());
                     classes.add(clazz);
                 }
             }

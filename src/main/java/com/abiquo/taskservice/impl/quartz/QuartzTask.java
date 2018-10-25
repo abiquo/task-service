@@ -56,8 +56,8 @@ public class QuartzTask implements Job
         }
         catch (Exception ex)
         {
-            throw new JobExecutionException("Could not instantiate task class: "
-                + taskClass.getName(), ex);
+            throw new JobExecutionException(
+                "Could not instantiate task class: " + taskClass.getName(), ex);
         }
 
         // Execute task method
@@ -67,8 +67,8 @@ public class QuartzTask implements Job
         }
         catch (Exception ex)
         {
-            throw new JobExecutionException("Could not execute task: "
-                + targetTask.getClass().getName(), ex);
+            throw new JobExecutionException(
+                "Could not execute task: " + targetTask.getClass().getName(), ex);
         }
     }
 

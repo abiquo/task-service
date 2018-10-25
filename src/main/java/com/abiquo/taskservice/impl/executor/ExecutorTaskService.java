@@ -86,9 +86,8 @@ public class ExecutorTaskService extends AbstractTaskService
         // Schedule task
         ExecutorTask executorTask = new ExecutorTask(taskClass);
 
-        ScheduledFuture< ? > scheduledTask =
-            scheduler.scheduleWithFixedDelay(executorTask, taskConfig.startDelay(),
-                taskConfig.interval(), taskConfig.timeUnit());
+        ScheduledFuture< ? > scheduledTask = scheduler.scheduleWithFixedDelay(executorTask,
+            taskConfig.startDelay(), taskConfig.interval(), taskConfig.timeUnit());
 
         scheduledTasks.put(taskName, scheduledTask);
     }
@@ -138,9 +137,8 @@ public class ExecutorTaskService extends AbstractTaskService
         // Schedule task
         ExecutorTask executorTask = new ExecutorTask(taskClass);
 
-        ScheduledFuture< ? > scheduledTask =
-            scheduler.scheduleWithFixedDelay(executorTask, taskConfig.startDelay(), minutes,
-                taskConfig.timeUnit());
+        ScheduledFuture< ? > scheduledTask = scheduler.scheduleWithFixedDelay(executorTask,
+            taskConfig.startDelay(), minutes, taskConfig.timeUnit());
 
         scheduledTasks.put(taskName, scheduledTask);
     }

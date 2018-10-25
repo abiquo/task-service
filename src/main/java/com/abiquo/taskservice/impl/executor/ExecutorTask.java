@@ -57,8 +57,8 @@ public class ExecutorTask implements Runnable
         }
         catch (Exception ex)
         {
-            throw new TaskServiceException("Could not instantiate task class: "
-                + taskClass.getName(), ex);
+            throw new TaskServiceException(
+                "Could not instantiate task class: " + taskClass.getName(), ex);
         }
     }
 
