@@ -95,8 +95,8 @@ public class QuartzTaskService extends AbstractTaskService
         }
         catch (SchedulerException ex)
         {
-            throw new TaskServiceException("Could not initialize "
-                + this.getClass().getSimpleName(), ex);
+            throw new TaskServiceException(
+                "Could not initialize " + this.getClass().getSimpleName(), ex);
         }
 
         // Start the scheduler
@@ -106,7 +106,8 @@ public class QuartzTaskService extends AbstractTaskService
         }
         catch (SchedulerException ex)
         {
-            throw new TaskServiceException("Could not start " + this.getClass().getSimpleName(), ex);
+            throw new TaskServiceException("Could not start " + this.getClass().getSimpleName(),
+                ex);
         }
 
         LOGGER.info("{} started", this.getClass().getSimpleName());
@@ -142,9 +143,8 @@ public class QuartzTaskService extends AbstractTaskService
         else
         {
             // Create a new period-based trigger
-            trigger =
-                createPeriodicTrigger(triggerName, taskConfig.interval(), taskConfig.startDelay(),
-                    taskConfig.timeUnit());
+            trigger = createPeriodicTrigger(triggerName, taskConfig.interval(),
+                taskConfig.startDelay(), taskConfig.timeUnit());
         }
 
         // Schedule job
@@ -256,8 +256,8 @@ public class QuartzTaskService extends AbstractTaskService
         }
         catch (Exception ex)
         {
-            throw new TaskServiceException("Invalid cron expression for task: "
-                + taskClass.getName(), ex);
+            throw new TaskServiceException(
+                "Invalid cron expression for task: " + taskClass.getName(), ex);
         }
     }
 
@@ -310,9 +310,8 @@ public class QuartzTaskService extends AbstractTaskService
         else
         {
             // Create a new period-based trigger
-            trigger =
-                createPeriodicTrigger(triggerName, minutes, taskConfig.startDelay(),
-                    taskConfig.timeUnit());
+            trigger = createPeriodicTrigger(triggerName, minutes, taskConfig.startDelay(),
+                taskConfig.timeUnit());
         }
 
         // Schedule job

@@ -44,7 +44,8 @@ public class TaskUtils
 
         if (methodCount != 1)
         {
-            throw new TaskServiceException("Task class must have one (and only one) method annotated with TaskMethod annotation");
+            throw new TaskServiceException(
+                "Task class must have one (and only one) method annotated with TaskMethod annotation");
         }
     }
 
@@ -65,7 +66,8 @@ public class TaskUtils
             }
         }
 
-        throw new TaskServiceException("Task class must have one (and only one) method annotated with TaskMethod annotation");
+        throw new TaskServiceException(
+            "Task class must have one (and only one) method annotated with TaskMethod annotation");
     }
 
     /**
